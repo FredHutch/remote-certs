@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'hutch-certs::default' do
+describe 'certs::default' do
   # Serverspec examples can be found at
   # http://serverspec.org/resource_types.html
   it 'installs certificates' do
