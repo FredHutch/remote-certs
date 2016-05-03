@@ -1,6 +1,8 @@
 ---
 driver:
   name: vagrant
+  synced_folders:
+      - [ './sample_certs', '/var/tmp/sample_certs' ]
 
 provisioner:
   name: chef_zero
@@ -12,10 +14,14 @@ provisioner:
 
 platforms:
   - name: ubuntu-14.04
-  - name: centos-7.1
 
 suites:
   - name: default
     run_list:
-      - recipe[hutch-certs::default]
+      - recipe[certs::default]
     attributes:
+        certs:
+            source: 'file:///var/tmp/sample_certs/sample.crt'
+            name: 'foo.crt'
+            organization: 'bar'
+            update_command: '/usr/sbin/update-ca-certificates -f'

@@ -13,9 +13,15 @@ attribute 'organization',
     :required     => 'required',
     :default      => 'organization'
 
-attribute 'cert_source',
+attribute 'source',
     :display_name => 'URL containing source',
     :description  => 'URL for the certificate source',
+    :type         => 'string',
+    :required     => 'required'
+
+attribute 'name',
+    :display_name => 'Certificicate Name',
+    :description  => 'Name for the certificate on the host',
     :type         => 'string',
     :required     => 'required'
 
