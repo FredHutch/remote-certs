@@ -1,4 +1,4 @@
-name 'hutch-certs'
+name 'certs'
 maintainer 'Scientific Computing'
 maintainer_email 'scicomp@fhcrc.org'
 license 'all_rights'
