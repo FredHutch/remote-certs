@@ -1,4 +1,4 @@
-name 'certs'
+name 'remote-certs'
 maintainer 'Scientific Computing'
 maintainer_email 'scicomp@fhcrc.org'
 license 'all_rights'
