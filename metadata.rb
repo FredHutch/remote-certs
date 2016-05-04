@@ -4,7 +4,7 @@ maintainer_email 'scicomp@fhcrc.org'
 license 'all_rights'
 description 'Installs Certificates'
 long_description 'Installs Certificates from HTTP Server for use by OpenSSL'
-version '0.1.0'
+version '0.1.1'
 
 attribute 'organization',
     :display_name => 'Organization Name',
