@@ -6,12 +6,12 @@
 # 
 
 execute 'install_cert' do
-    command node['certs']['update_command']
+    command node['remote-certs']['update_command']
     action :nothing
 end
 
 # create organization subdirectory for certificate
-directory "/usr/share/ca-certificates/#{node['certs']['organization']}" do
+directory "/usr/share/ca-certificates/#{node['remote-certs']['organization']}" do
     owner 'root'
     group 'root'
     mode '0755'
@@ -19,8 +19,8 @@ directory "/usr/share/ca-certificates/#{node['certs']['organization']}" do
 end
 
 # Install file into certificates directory
-remote_file "/usr/share/ca-certificates/#{node['certs']['organization']}/#{node['certs']['name']}" do
-    source node['certs']['source']
+remote_file "/usr/share/ca-certificates/#{node['remote-certs']['organization']}/#{node['remote-certs']['name']}" do
+    source node['remote-certs']['source']
     owner 'root'
     group 'root'
     mode '0644'
@@ -32,8 +32,8 @@ ruby_block 'add_line' do
     block do
         file = Chef::Util::FileEdit.new('/etc/ca-certificates.conf')
         file.insert_line_if_no_match(
-            "/#{node['certs']['organization']}/",
-            "#{node['certs']['organization']}/#{node['certs']['name']}"
+            "/#{node['remote-certs']['organization']}/",
+            "#{node['remote-certs']['organization']}/#{node['remote-certs']['name']}"
         )
         file.write_file
     end
