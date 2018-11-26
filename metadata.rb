@@ -6,6 +6,8 @@ description 'Installs Certificates'
 long_description 'Installs Certificates from HTTP Server for use by OpenSSL'
 version '0.1.3'
 
+depends 'line', '~> 2.1.1'
+
 attribute 'organization',
     :display_name => 'Organization Name',
     :description  => 'The name of the organization that owns the certificate',

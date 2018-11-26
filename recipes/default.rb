@@ -28,14 +28,7 @@ remote_file "/usr/share/ca-certificates/#{node['remote-certs']['organization']}/
 end
 
 # Update the certificates configuration with the new cert
-ruby_block 'add_line' do
-    block do
-        file = Chef::Util::FileEdit.new('/etc/ca-certificates.conf')
-        file.insert_line_if_no_match(
-            "/#{node['remote-certs']['organization']}/",
-            "#{node['remote-certs']['organization']}/#{node['remote-certs']['name']}"
-        )
-        file.write_file
-    end
-    notifies :run, 'execute[install_cert]', :immediately
+append_if_no_line 'add certificate to config' do
+  path '/etc/ca-certificates.conf'
+  line "#{node['remote-certs']['organization']}\/#{node['remote-certs']['name']}"
 end
