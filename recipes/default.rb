@@ -31,4 +31,5 @@ end
 append_if_no_line 'add certificate to config' do
   path '/etc/ca-certificates.conf'
   line "#{node['remote-certs']['organization']}\/#{node['remote-certs']['name']}"
+  notifies :run, 'execute[install_cert]', :delayed
 end
