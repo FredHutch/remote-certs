@@ -3,39 +3,37 @@
 # Recipe:: default
 #
 # Copyright (c) 2016 The Authors, All Rights Reserved.
-# 
+#
 
 execute 'install_cert' do
-    command node['certs']['update_command']
-    action :nothing
+  command node['remote-certs']['update_command']
+  action :nothing
 end
 
+tld = '/usr/share/ca-certificates'
+org = node['remote-certs']['organization']
+name = node['remote-certs']['name']
+
 # create organization subdirectory for certificate
-directory "/usr/share/ca-certificates/#{node['certs']['organization']}" do
-    owner 'root'
-    group 'root'
-    mode '0755'
-    action :create
+directory "#{tld}/#{org}" do
+  owner 'root'
+  group 'root'
+  mode '0755'
+  action :create
 end
 
 # Install file into certificates directory
-remote_file "/usr/share/ca-certificates/#{node['certs']['organization']}/#{node['certs']['name']}" do
-    source node['certs']['source']
-    owner 'root'
-    group 'root'
-    mode '0644'
-    action :create
+remote_file "#{tld}/#{org}/#{name}" do
+  source node['remote-certs']['source']
+  owner 'root'
+  group 'root'
+  mode '0644'
+  action :create
 end
 
 # Update the certificates configuration with the new cert
-ruby_block 'add_line' do
-    block do
-        file = Chef::Util::FileEdit.new('/etc/ca-certificates.conf')
-        file.insert_line_if_no_match(
-            "/#{node['certs']['organization']}/",
-            "#{node['certs']['organization']}/#{node['certs']['name']}"
-        )
-        file.write_file
-    end
-    notifies :run, 'execute[install_cert]', :immediately
+append_if_no_line 'add certificate to config' do
+  path '/etc/ca-certificates.conf'
+  line "#{org}\/#{name}"
+  notifies :run, 'execute[install_cert]', :delayed
 end
