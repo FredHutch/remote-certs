@@ -16,6 +16,6 @@ suites:
       - recipe[remote-certs::default]
     attributes:
       remote-certs:
-        source: 'file:///var/tmp/sample_certs/sample.crt'
-        name: 'certificate.crt'
+        source: 'file:///var/tmp/sample_certs/cert.pem'
+        name: 'certificate.pem'
         organization: 'org'
