@@ -2,15 +2,10 @@
 driver:
   name: vagrant
   synced_folders:
-      - [ './sample_certs', '/var/tmp/sample_certs' ]
+      - [ './test/integration/default/sample_certs/', '/var/tmp/sample_certs' ]
 
 provisioner:
   name: chef_zero
-
-# Uncomment the following verifier to leverage Inspec instead of Busser (the
-# default verifier)
-# verifier:
-#   name: inspec
 
 platforms:
   - name: ubuntu-14.04
