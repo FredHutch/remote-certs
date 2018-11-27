@@ -24,4 +24,3 @@ suites:
         source: 'file:///var/tmp/sample_certs/sample.crt'
         name: 'certificate.crt'
         organization: 'org'
-        update_command: '/usr/sbin/update-ca-certificates -f'
